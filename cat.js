@@ -1,15 +1,16 @@
-const fs = require("fs");
-const { isMainThread } = require("worker_threads");
-const lsImport = require("./ls.js");
+const fs = require('fs');
+const { isMainThread } = require('worker_threads');
+const lsImport = require('./ls.js');
+const done = require('./command.js');
 
 //function takes files, stdout out for file matching
 //input name
 module.exports = function (catCMD) {
-  const [cmd, fileName] = catCMD.split(" ");
-  if (cmd === "cat") {
-    fs.readFile(fileName, "utf8", (err, data) => {
-      if (err) throw err;
-      console.log(data);
+  const [cmd, fileName] = catCMD.split(' ');
+  if (cmd === 'cat') {
+    fs.readFile(fileName, 'utf8', (err, data) => {
+      if (err) done(err);
+      done(data);
     });
   }
 };
